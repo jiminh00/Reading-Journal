@@ -1,0 +1,25 @@
+name: "🐞 Bug"
+description: "🛠️ 버그를 보고합니다."
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes:
+      label: "🐛 버그 설명"
+      description: "발생한 버그에 대한 설명을 작성해주세요."
+      placeholder: "🐞 버그에 대해 자세히 설명해주세요."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "⚙️ 재현 방법"
+      description: "버그를 재현할 수 있는 방법을 작성해주세요."
+      placeholder: "1️⃣ 무엇을 했는지\n2️⃣ 무엇이 잘못되었는지."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "✅ 기대 결과"
+      description: "버그가 수정되었을 때 기대되는 결과를 작성해주세요."
+      placeholder: "✅ 정상적으로 동작했을 때의 결과."
+    validations:
+      required: true

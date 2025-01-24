@@ -1,0 +1,16 @@
+name: "🛠️ Chore"
+description: "🔧 작업 관리를 위한 템플릿입니다."
+labels: ["chore"]
+body:
+  - type: textarea
+    attributes:
+      label: "📝 작업 내용"
+      description: "수행할 작업의 내용을 작성해주세요."
+      placeholder: "🔧 예: 서버 설정 변경, 환경 변수 업데이트"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "📚 관련 문서"
+      description: "작업과 관련된 문서나 참고 자료를 작성해주세요."
+      placeholder: "📖 예: 링크 또는 참고 사항"

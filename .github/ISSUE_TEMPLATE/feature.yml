@@ -1,0 +1,23 @@
+name: "✨ Feature"
+description: "🆕 새로운 기능 추가"
+labels: ["feature"]
+body:
+  - type: textarea
+    attributes:
+      label: "📝 설명"
+      description: "새로운 기능에 대한 설명을 작성해주세요."
+      placeholder: "✨ 기능에 대한 간단한 설명"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "🗒️ 작업할 내용"
+      description: "할 일을 체크박스 형태로 작성해주세요."
+      placeholder: "✔️ 예:\n- [ ] 기능 1\n- [ ] 기능 2"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "📚 참고 자료"
+      description: "참고 자료가 있다면 작성해주세요."
+      placeholder: "🔗 참고 링크 또는 메모"
