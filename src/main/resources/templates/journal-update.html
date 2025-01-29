@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Journal - 감상평 수정</title>
+    <link rel="stylesheet" th:href="@{/css/journal-write.css}">
+    <script th:src="@{/js/journal-write.js}" defer></script>
+</head>
+<body>
+<header class="header">
+    <h1>Reading-Journal</h1>
+    <nav class="nav">
+        <a href="/logout" class="tab">로그아웃</a>
+        <a href="/add-book" class="tab">책 등록</a>
+    </nav>
+</header>
+<main class="main-container">
+    <section class="review-write-section">
+        <h2>감상평 수정</h2>
+        <div class="review-info">
+            <p><strong>시작 페이지</strong> <input type="number" name="startPage" value="" class="page-input"></p>
+            <p><strong>마지막 페이지</strong> <input type="number" name="endPage" value="" class="page-input"></p>
+        </div>
+        <div class="review-content">
+            <h3>감상평</h3>
+            <textarea name="review" id="review" placeholder="감상평을 입력하세요"></textarea>
+        </div>
+        <div class="deep-thought-section">
+            <h3>인상 깊은 문장 <button type="button" id="add-thought-btn" class="add-btn">추가</button></h3>
+            <div id="thoughts-container">
+                <div class="thought-container">
+                    <p><strong>페이지:</strong> <input type="number" name="page" class="page-input" value=""></p>
+                    <textarea name="thought" class="thought-text" placeholder="문장을 입력하세요"></textarea>
+                    <button type="button" class="remove-btn">삭제</button>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">수정</button>
+    </section>
+</main>
+</body>
+</html>
