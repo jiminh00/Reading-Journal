@@ -19,9 +19,8 @@
     <section class="review-write-section">
         <h2>감상평 작성</h2>
         <div class="review-info">
-            <p><strong>책:</strong> 인간의 굴레이서1</p>
-            <p><strong>시작 페이지:</strong> 76</p>
-            <p><strong>마지막 페이지:</strong> 140</p>
+            <p><strong>시작 페이지</strong> <input type="number" name="startPage" value="" class="page-input"></p>
+            <p><strong>마지막 페이지</strong> <input type="number" name="endPage" value="" class="page-input"></p>
         </div>
         <div class="review-content">
             <h3>감상평</h3>
@@ -31,7 +30,7 @@
             <h3>인상 깊은 문장 <button type="button" id="add-thought-btn" class="add-btn">추가</button></h3>
             <div id="thoughts-container">
                 <div class="thought-container">
-                    <p><strong>페이지:</strong> <input type="number" name="page" class="page-input" value="79"></p>
+                    <p><strong>페이지:</strong> <input type="number" name="page" class="page-input" value=""></p>
                     <textarea name="thought" class="thought-text" placeholder="문장을 입력하세요"></textarea>
                     <button type="button" class="remove-btn">삭제</button>
                 </div>
@@ -41,3 +40,4 @@
     </section>
 </main>
 </body>
+</html>
