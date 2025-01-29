@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Journal - 책 등록</title>
+    <link rel="stylesheet" th:href="@{/css/book-register.css}">
+</head>
+<body>
+<header class="header">
+    <h1>Reading-Journal</h1>
+    <nav class="nav">
+        <a href="/logout" class="tab">로그아웃</a>
+        <a href="/add-book" class="tab active">책 등록</a>
+    </nav>
+</header>
+<main class="main-container">
+    <section class="book-register-section">
+        <h2>책 등록</h2>
+        <form action="/register-book" method="post" enctype="multipart/form-data" class="book-register-form">
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+            </div>
+            <div class="form-group">
+                <label for="author">저자</label>
+                <input type="text" id="author" name="author" placeholder="저자를 입력하세요" required>
+            </div>
+            <div class="form-group">
+                <label>공개 여부</label>
+                <div>
+                    <input type="radio" id="public" name="visibility" value="public" required>
+                    <label for="public">공개</label>
+                    <input type="radio" id="private" name="visibility" value="private">
+                    <label for="private">비공개</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="bookImage">책 이미지</label>
+                <input type="file" id="bookImage" name="bookImage" accept="image/*">
+            </div>
+            <button type="submit" class="submit-btn">등록</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>
