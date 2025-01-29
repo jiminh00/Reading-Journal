@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Journal - 감상평 상세</title>
+    <link rel="stylesheet" th:href="@{/css/journal-detail.css}">
+</head>
+<body>
+<header class="header">
+    <h1>Reading-Journal</h1>
+    <nav class="nav">
+        <a href="/logout" class="tab">로그아웃</a>
+        <a href="/add-book" class="tab">책 등록</a>
+    </nav>
+</header>
+<main class="main-container">
+    <section class="review-detail-section">
+        <h2>감상평 상세</h2>
+        <div class="review-info">
+            <p><strong>책:</strong> 인간의 굴레에서1</p>
+            <p><strong>시작 페이지:</strong> 76</p>
+            <p><strong>마지막 페이지:</strong> 140</p>
+        </div>
+        <div class="review-content">
+            <h3>감상평</h3>
+            <textarea readonly>샘플 데이터 22</textarea>
+        </div>
+        <div class="deep-thought-section">
+            <h3>인상 깊은 문장</h3>
+            <div class="deep-thought">
+                <div class="thought-container">
+                    <p><strong>페이지:</strong> 79</p>
+                    <textarea readonly>샘플 데이터</textarea>
+                </div>
+                <!-- Add more thought-container divs for additional thoughts -->
+            </div>
+        </div>
+        <button type="button" class="edit-btn">수정</button>
+    </section>
+</main>
+</body>
+</html>
