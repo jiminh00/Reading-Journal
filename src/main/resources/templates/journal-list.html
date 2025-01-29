@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Journal - 감상평 리스트</title>
+    <link rel="stylesheet" th:href="@{/css/journal-list.css}">
+</head>
+<body>
+<header class="header">
+    <h1>Reading-Journal</h1>
+    <nav class="nav">
+        <a href="/logout" class="tab">로그아웃</a>
+        <a href="/add-book" class="tab">책 등록</a>
+    </nav>
+</header>
+<main class="main-container">
+    <section class="reviews-section">
+        <div class="top-bar">
+            <h2>감상평 리스트</h2>
+            <a href="/write-review" class="write-review-btn">감상평 작성</a>
+        </div>
+        <table class="reviews-table">
+            <thead>
+            <tr>
+                <th>날짜</th>
+                <th>시작 페이지</th>
+                <th>마지막 페이지</th>
+                <th>감상평</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2025-01-29</td>
+                <td>35</td>
+                <td>80</td>
+                <td>감상평 내용 샘플 데이터...</td>
+            </tr>
+            <tr>
+                <td>2025-01-24</td>
+                <td>10</td>
+                <td>24</td>
+                <td>감상평 내용 샘플 데이터...</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <button class="pagination-btn">1 p</button>
+        </div>
+    </section>
+</main>
+</body>
+</html>

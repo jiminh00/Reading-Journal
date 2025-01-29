@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading-Journal</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<header>
+    <h1>Reading-Journal</h1>
+    <nav>
+        <a href="/signup">회원가입</a>
+        <a href="/login">로그인</a>
+    </nav>
+</header>
+<main>
+    <h2>당신의 책을 기록하세요.</h2>
+    <div class="book-container">
+        <div class="book-card">
+            <img th:src="@{/images/book-01.jpg}" alt="하늘과 바람과 별과 시">
+            <p>나미야 잡화점의 기적</p>
+        </div>
+        <div class="book-card">
+            <img src="@{/images/book-02.jpg}" alt="나미야 잡화점의 기적">
+            <p>하늘과 바람과 별과 시</p>
+        </div>
+        <div class="book-card">
+            <img src="@{/images/book-03.jpg}" alt="면도날">
+            <p>면도날</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>
