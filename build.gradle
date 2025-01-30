@@ -24,15 +24,41 @@ repositories {
 }
 
 dependencies {
+	// Thymeleaf 템플릿 엔진을 사용하기 위한 Spring Boot Starter
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// Spring Boot 웹 애플리케이션을 위한 기본 의존성 (Spring MVC 포함)
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// MyBatis와 Spring Boot의 통합을 위한 MyBatis Starter
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+
+	// Lombok을 사용하여 코드에서 Getter, Setter, 생성자 자동 생성 (컴파일 시만 필요)
 	compileOnly 'org.projectlombok:lombok'
+
+	// 런타임 시 MySQL JDBC 드라이버 사용 (HikariCP와 함께 사용)
 	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// Lombok을 위한 애너테이션 프로세서 (컴파일 시 적용)
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// Spring Boot의 기본 테스트 라이브러리 포함 (Junit, Mockito 등)
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// MyBatis의 테스트를 위한 추가 라이브러리
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
+
+	// JUnit 플랫폼 런처 (테스트 실행 시 필요)
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// HikariCP 커넥션 풀 사용 (Spring Boot 기본 커넥션 풀보다 성능 우수)
+	implementation 'com.zaxxer:HikariCP'
+
+	// 최신 MySQL JDBC 드라이버 사용 (8.x 버전)
+	implementation 'mysql:mysql-connector-java:8.0.33'
+
+	// log4jdbc 사용 (SQL 쿼리 로깅을 위한 드라이버)
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 }
 
 tasks.named('test') {
