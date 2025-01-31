@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Journal - 회원가입</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/signup.css}">
 </head>
 <body>
-<header class="header">
-    <h1>Reading-Journal</h1>
-    <nav class="nav">
-        <a th:href="@{/reading-journal/signup}" class="tab active">회원가입</a>
-        <a href="/login" class="tab">로그인</a>
-    </nav>
-</header>
+<div th:replace="~{fragments/header :: header}"></div>
 <main class="main-container">
     <section class="register-section">
         <h2>회원가입</h2>
