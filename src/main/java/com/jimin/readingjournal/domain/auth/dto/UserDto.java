@@ -1,4 +1,4 @@
-package com.jimin.readingjournal.dto;
+package com.jimin.readingjournal.domain.auth.dto;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
-package com.jimin.readingjournal.exception.response;
+package com.jimin.readingjournal.global.exception.response;
 
-import com.jimin.readingjournal.exception.custom.ReadingJournalException;
+import com.jimin.readingjournal.global.exception.custom.ReadingJournalException;
 import lombok.Builder;
 import lombok.Getter;
 

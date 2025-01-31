@@ -1,4 +1,4 @@
-package com.jimin.readingjournal.config;
+package com.jimin.readingjournal.global.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;

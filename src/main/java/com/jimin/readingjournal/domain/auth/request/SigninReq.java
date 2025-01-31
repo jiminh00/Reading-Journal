@@ -1,4 +1,4 @@
-package com.jimin.readingjournal.request;
+package com.jimin.readingjournal.domain.auth.request;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,8 +1,8 @@
-package com.jimin.readingjournal.controller;
+package com.jimin.readingjournal.domain.auth.controller;
 
-import com.jimin.readingjournal.request.SigninReq;
-import com.jimin.readingjournal.request.SignupReq;
-import com.jimin.readingjournal.service.AuthService;
+import com.jimin.readingjournal.domain.auth.request.SigninReq;
+import com.jimin.readingjournal.domain.auth.request.SignupReq;
+import com.jimin.readingjournal.domain.auth.service.AuthService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

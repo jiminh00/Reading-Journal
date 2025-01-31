@@ -1,4 +1,4 @@
-package com.jimin.readingjournal.request;
+package com.jimin.readingjournal.domain.auth.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

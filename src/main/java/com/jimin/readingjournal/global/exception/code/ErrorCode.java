@@ -1,4 +1,4 @@
-package com.jimin.readingjournal.exception.code;
+package com.jimin.readingjournal.global.exception.code;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

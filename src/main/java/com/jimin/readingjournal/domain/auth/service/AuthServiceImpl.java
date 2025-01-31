@@ -1,11 +1,11 @@
-package com.jimin.readingjournal.service;
+package com.jimin.readingjournal.domain.auth.service;
 
-import com.jimin.readingjournal.dto.UserDto;
-import com.jimin.readingjournal.exception.custom.PasswordMismatchException;
-import com.jimin.readingjournal.exception.custom.UserIdDuplicateException;
-import com.jimin.readingjournal.mapper.ReadingJournalMapper;
-import com.jimin.readingjournal.request.SigninReq;
-import com.jimin.readingjournal.request.SignupReq;
+import com.jimin.readingjournal.domain.auth.dto.UserDto;
+import com.jimin.readingjournal.global.exception.custom.PasswordMismatchException;
+import com.jimin.readingjournal.global.exception.custom.UserIdDuplicateException;
+import com.jimin.readingjournal.domain.auth.mapper.AuthMapper;
+import com.jimin.readingjournal.domain.auth.request.SigninReq;
+import com.jimin.readingjournal.domain.auth.request.SignupReq;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
 
-    private final ReadingJournalMapper mapper;
+    private final AuthMapper mapper;
 
     @Override
     @Transactional

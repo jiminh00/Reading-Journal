@@ -1,4 +1,4 @@
-package com.jimin.readingjournal.config;
+package com.jimin.readingjournal.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

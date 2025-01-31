@@ -1,10 +1,10 @@
-package com.jimin.readingjournal.exception.handler;
+package com.jimin.readingjournal.global.exception.handler;
 
-import com.jimin.readingjournal.exception.custom.PasswordMismatchException;
-import com.jimin.readingjournal.exception.custom.ReadingJournalException;
-import com.jimin.readingjournal.exception.custom.UserIdDuplicateException;
-import com.jimin.readingjournal.exception.response.ErrorResponse;
-import com.jimin.readingjournal.request.SignupReq;
+import com.jimin.readingjournal.global.exception.custom.PasswordMismatchException;
+import com.jimin.readingjournal.global.exception.custom.ReadingJournalException;
+import com.jimin.readingjournal.global.exception.custom.UserIdDuplicateException;
+import com.jimin.readingjournal.global.exception.response.ErrorResponse;
+import com.jimin.readingjournal.domain.auth.request.SignupReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;

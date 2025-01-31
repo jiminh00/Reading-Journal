@@ -1,6 +1,6 @@
-package com.jimin.readingjournal.exception.custom;
+package com.jimin.readingjournal.global.exception.custom;
 
-import com.jimin.readingjournal.exception.code.ErrorCode;
+import com.jimin.readingjournal.global.exception.code.ErrorCode;
 
 public class PasswordMismatchException extends ReadingJournalException {
     public PasswordMismatchException() {
