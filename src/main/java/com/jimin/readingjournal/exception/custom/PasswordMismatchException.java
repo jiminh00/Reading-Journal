@@ -1,7 +1,9 @@
 package com.jimin.readingjournal.exception.custom;
 
-public class PasswordMismatchException extends RuntimeException {
-    public PasswordMismatchException(String message) {
-        super(message);
+import com.jimin.readingjournal.exception.code.ErrorCode;
+
+public class PasswordMismatchException extends ReadingJournalException {
+    public PasswordMismatchException() {
+        super(ErrorCode.PASSWORD_MISMATCH.getMessage(), ErrorCode.PASSWORD_MISMATCH.toString(), "confirmPassword");
     }
 }

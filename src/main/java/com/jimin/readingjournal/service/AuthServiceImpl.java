@@ -20,13 +20,14 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void signup(SignupReq signupReq) {
-        // 비밀번호 불일치 예외 처리
+        // 비밀번호 불일치 예외
         if (!signupReq.getPassword().equals(signupReq.getConfirmPassword())) {
-            throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
+            throw new PasswordMismatchException();
         }
 
+        // 아이디 중복 예외
         if (mapper.selectUserByUserId(signupReq.getId()) != null) {
-            throw new UserIdDuplicateException("ID가 중복되었습니다. 다시 설정해주세요.");
+            throw new UserIdDuplicateException();
         }
 
         String encodedPassword = passwordEncoder.encode(signupReq.getPassword());

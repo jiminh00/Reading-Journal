@@ -1,7 +1,9 @@
 package com.jimin.readingjournal.exception.custom;
 
-public class UserIdDuplicateException extends RuntimeException {
-    public UserIdDuplicateException(String message) {
-        super(message);
+import com.jimin.readingjournal.exception.code.ErrorCode;
+
+public class UserIdDuplicateException extends ReadingJournalException {
+    public UserIdDuplicateException() {
+        super(ErrorCode.USERID_DUPLICATE.getMessage(), ErrorCode.USERID_DUPLICATE.toString(), "userId");
     }
 }
