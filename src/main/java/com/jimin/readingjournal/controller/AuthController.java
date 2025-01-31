@@ -1,7 +1,9 @@
 package com.jimin.readingjournal.controller;
 
+import com.jimin.readingjournal.request.SigninReq;
 import com.jimin.readingjournal.request.SignupReq;
 import com.jimin.readingjournal.service.AuthService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +31,7 @@ public class AuthController {
         return "signup";
     }
 
-    // 회원가입
+    // 회원가입 절차
     @PostMapping("/signup")
     public String submitSignup(@ModelAttribute("signupReq") @Valid SignupReq signupReq,
                              BindingResult result, Model model,
@@ -45,6 +47,34 @@ public class AuthController {
 
         redirectAttributes.addFlashAttribute("alertMessage", "회원가입이 완료되었습니다!");
 
+        return "redirect:/reading-journal";
+    }
+
+    // 로그인 페이지
+    @GetMapping("/signin")
+    public String openSignin(Model model) {
+        model.addAttribute("signinReq", new SigninReq());
+        return "signin";
+    }
+
+    // 로그인
+    @PostMapping("/signin")
+    public String submitSignin(@ModelAttribute("signinReq") SigninReq signinReq,
+                               HttpSession session, RedirectAttributes redirectAttributes) {
+        if (!authService.signin(signinReq, session)) {
+            redirectAttributes.addFlashAttribute("alertMessage", "로그인에 실패했습니다.");
+            return "redirect:/reading-journal/signin";
+        }
+
+        redirectAttributes.addFlashAttribute("alertMessage", "로그인에 성공하였습니다.");
+        return "redirect:/reading-journal";
+    }
+
+    // 로그아웃
+    @PostMapping("/signout")
+    public String signout(HttpSession session, RedirectAttributes redirectAttributes) {
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("alertMessage", "로그아웃 되었습니다.");
         return "redirect:/reading-journal";
     }
 }

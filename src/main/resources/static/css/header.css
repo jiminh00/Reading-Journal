@@ -1,0 +1,75 @@
+/* 전체 배경 및 헤더 스타일 */
+/* 링크의 기본 밑줄 제거 */
+.header a {
+    text-decoration: none;
+}
+
+/* 링크 hover 및 클릭 시 밑줄 제거 */
+.header a:hover,
+.header a:focus,
+.header a:active {
+    text-decoration: none;
+    outline: none;
+}
+
+/* 링크 클릭 시 스타일 유지 */
+.header a:visited {
+    text-decoration: none;
+    color: inherit; /* 링크 클릭 후에도 기본 색상 유지 */
+}
+
+.header {
+    background-color: #f8f9fa !important;
+    color: #333 !important;
+    padding: 20px !important;
+    text-align: center !important;
+    border-bottom: 2px solid #ddd !important;
+    font-family: Arial, sans-serif !important;
+}
+
+/* 네비게이션 스타일 */
+.nav {
+    margin-top: 15px !important;
+    display: flex !important;
+    justify-content: center !important; /* 가운데 정렬 */
+    gap: 15px !important;
+}
+
+/* 공통 버튼 스타일 */
+.nav a,
+.nav-button {
+    display: inline-block !important;
+    background-color: white !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    padding: 10px 15px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #333 !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s !important;
+    text-decoration: none !important; /* 밑줄 제거 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 버튼 hover 효과 */
+.nav a:hover,
+.nav-button:hover {
+    background-color: #e9ecef !important; /* hover 시 더 밝은 회색 */
+    transform: translateY(-2px) !important; /* 약간 위로 올라가는 효과 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 클릭(포커스) 시 스타일 유지 */
+.nav a:focus,
+.nav a:active,
+.nav-button:focus,
+.nav-button:active {
+    text-decoration: none !important; /* 밑줄 제거 */
+    outline: none !important;
+    color: #333 !important; /* 텍스트 색상 변경 없음 */
+    background-color: white !important; /* 배경색 변경 없음 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important; /* 클릭 후 그림자 유지 */
+    transform: none !important; /* 클릭 후 이동 없음 */
+}

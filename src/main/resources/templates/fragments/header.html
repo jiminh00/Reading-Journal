@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading-Journal</title>
+    <link rel="stylesheet" th:href="@{/css/header.css(version=${T(java.lang.System).currentTimeMillis()})}">
+</head>
+<body>
+<header class="header" th:fragment="header">
+    <a th:href="@{/reading-journal}"><h1>Reading-Journal</h1></a>
+    <nav class="nav">
+        <th:block th:if="${session.userId == null}">
+            <a th:href="@{/reading-journal/signup}">회원가입</a>
+            <a th:href="@{/reading-journal/signin}">로그인</a>
+        </th:block>
+        <th:block th:if="${session.userId != null}">
+            <a th:href="@{/book/register}" class="nav-button">책 등록</a>
+            <form th:action="@{/reading-journal/signout}" method="post" style="display:inline;">
+                <button type="submit" class="nav-button" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</button>
+            </form>
+        </th:block>
+    </nav>
+</header>
+</body>
+</html>

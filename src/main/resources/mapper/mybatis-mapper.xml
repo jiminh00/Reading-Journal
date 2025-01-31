@@ -11,4 +11,8 @@
         SELECT * FROM users
         WHERE user_id=#{userId};
     </select>
+    <select id="selectUserByUserIdAndUserPassword" parameterType="com.jimin.readingjournal.dto.UserDto">
+        SELECT * FROM users
+        WHERE user_id=#{userId} and user_pw=#{password};
+    </select>
 </mapper>

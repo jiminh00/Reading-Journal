@@ -4,17 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Journal - 감상평 작성</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/journal-write.css}">
     <script th:src="@{/js/journal-write.js}" defer></script>
 </head>
 <body>
-<header class="header">
-    <h1>Reading-Journal</h1>
-    <nav class="nav">
-        <a href="/logout" class="tab">로그아웃</a>
-        <a href="/add-book" class="tab">책 등록</a>
-    </nav>
-</header>
+<div th:replace="~{fragments/header :: header}"></div>
 <main class="main-container">
     <section class="review-write-section">
         <h2>감상평 작성</h2>

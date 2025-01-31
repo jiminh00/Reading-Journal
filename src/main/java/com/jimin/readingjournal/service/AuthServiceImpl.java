@@ -4,12 +4,16 @@ import com.jimin.readingjournal.dto.UserDto;
 import com.jimin.readingjournal.exception.custom.PasswordMismatchException;
 import com.jimin.readingjournal.exception.custom.UserIdDuplicateException;
 import com.jimin.readingjournal.mapper.ReadingJournalMapper;
+import com.jimin.readingjournal.request.SigninReq;
 import com.jimin.readingjournal.request.SignupReq;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -34,8 +38,24 @@ public class AuthServiceImpl implements AuthService {
 
         UserDto userDto = new UserDto();
         userDto.setUserId(signupReq.getId());
-        userDto.setPassword(encodedPassword);
+        userDto.setUserPw(encodedPassword);
 
         mapper.insertUser(userDto);
+    }
+
+    @Override
+    public boolean signin(SigninReq signinReq, HttpSession session) {
+        UserDto userDto = mapper.selectUserByUserId(signinReq.getId());
+        log.info("stored password {}", userDto.getUserPw());
+        if (userDto == null || !passwordEncoder.matches(signinReq.getPassword(), userDto.getUserPw())) {
+            log.info("User with id {} login failed", signinReq.getId());
+            // dblvhY789!
+            return false;
+        }
+
+        log.info("User with id {} login succeed", signinReq.getId());
+        session.setAttribute("userId", userDto.getUserId());
+
+        return true;
     }
 }
