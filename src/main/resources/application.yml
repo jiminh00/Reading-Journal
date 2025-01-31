@@ -11,11 +11,3 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-
-logging:
-  level:
-#    root: OFF
-    com.jimin.readingjournal: DEBUG
-    org.mybatis: DEBUG
-    org.springframework.jdbc.core: DEBUG
-    com.zaxxer.hikari: INFO
