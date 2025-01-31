@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading-Journal</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <script th:inline="javascript">
+        /* Flash 메시지가 있으면 alert 창 띄우기 */
+        /* <![CDATA[ */
+        window.onload = function() {
+            let alertMessage = /*[[${alertMessage}]]*/ null;
+            if (alertMessage) {
+                alert(alertMessage);
+            }
+        }
+        /* ]]> */
+    </script>
+</head>
+<body>
+<header>
+    <h1>Reading-Journal</h1>
+    <nav>
+        <a th:href="@{/reading-journal/signup}">회원가입</a>
+        <a href="/login">로그인</a>
+    </nav>
+</header>
+<main>
+    <h2>당신의 책을 기록하세요.</h2>
+    <div th:if="${session.userId == null}">
+        <p class="description">회원가입 후, 책을 등록하여, 읽은 페이지와 감상평을 남겨보세요. 당신의 독서 여정을 기록해보세요.</p>
+        <div class="book-container">
+            <div class="book-card">
+                <a th:href="@{/review-list/sample/1}">
+                    <img th:src="@{/images/book-01.png}" alt="나미야 잡화점의 기적">
+                </a>
+                <p>나미야 잡화점의 기적</p>
+            </div>
+            <div class="book-card">
+                <a th:href="@{/review-list/sample/2}">
+                    <img th:src="@{/images/book-02.png}" alt="하늘과 바람과 별과 시">
+                </a>
+                <p>하늘과 바람과 별과 시</p>
+            </div>
+            <div class="book-card">
+                <a th:href="@{/review-list/sample/3}">
+                    <img th:src="@{/images/book-03.png}" alt="면도날">
+                </a>
+                <p>면도날</p>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
