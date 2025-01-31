@@ -3,5 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jimin.readingjournal.mapper.ReadingJournalMapper">
-
+    <insert id="insertUser" parameterType="com.jimin.readingjournal.dto.UserDto">
+        INSERT INTO users (user_id, user_pw)
+        VALUES (#{userId}, #{password})
+    </insert>
 </mapper>
