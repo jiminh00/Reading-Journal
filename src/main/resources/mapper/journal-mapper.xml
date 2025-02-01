@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jimin.readingjournal.domain.journal.mapper.JournalMapper">
+    <insert id="insertBook" parameterType="com.jimin.readingjournal.domain.journal.dto.BookDto" useGeneratedKeys="true" keyProperty="bookId">
+        INSERT INTO book (user_id, book_title, book_author)
+        VALUES (#{userId}, #{bookTitle}, #{bookAuthor})
+    </insert>
+    <insert id="insertBookImage" parameterType="com.jimin.readingjournal.domain.journal.dto.BookImageDto">
+        INSERT INTO book_image (book_image_url, book_id, user_id, book_image_name)
+        VALUES (#{bookImageUrl}, #{bookId}, #{userId}, #{bookImageName})
+    </insert>
+    <select id="getBookCardsByUserId" parameterType="String">
+        SELECT b.book_id as book_id, b.book_title as book_title, bi.book_image_url as book_image_url
+        FROM book b join book_image bi on b.book_id = bi.book_id
+        WHERE b.user_id=#{userId};
+    </select>
+</mapper>
