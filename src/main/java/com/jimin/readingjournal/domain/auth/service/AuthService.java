@@ -8,4 +8,6 @@ public interface AuthService {
     void signup(SignupReq signupReq);
 
     boolean signin(SigninReq signinReq, HttpSession session);
+
+    String getUserId(HttpSession session);
 }

@@ -58,4 +58,9 @@ public class AuthServiceImpl implements AuthService {
 
         return true;
     }
+
+    @Override
+    public String getUserId(HttpSession session) {
+        return (String) session.getAttribute("userId");
+    }
 }
