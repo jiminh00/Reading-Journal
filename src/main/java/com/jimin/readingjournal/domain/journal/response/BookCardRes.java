@@ -1,9 +1,9 @@
-package com.jimin.readingjournal.domain.journal.dto;
+package com.jimin.readingjournal.domain.journal.response;
 
 import lombok.Data;
 
 @Data
-public class BookCardDto {
+public class BookCardRes {
     private Long bookId;
     private String bookTitle;
     private String bookImageUrl;

@@ -1,18 +1,14 @@
-package com.jimin.readingjournal.domain.journal.dto;
+package com.jimin.readingjournal.domain.journal.response;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-@Builder
-public class JournalDto {
+public class JournalListRes {
     private Long journalId;
     private int startPage;
     private int endPage;
     private String review;
-    private String userId;
-    private Long bookId;
     private LocalDate createdAt;
 }

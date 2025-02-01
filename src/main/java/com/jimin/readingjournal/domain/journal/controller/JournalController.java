@@ -1,7 +1,8 @@
 package com.jimin.readingjournal.domain.journal.controller;
 
-import com.jimin.readingjournal.domain.journal.dto.JournalDto;
 import com.jimin.readingjournal.domain.journal.request.BookRegisterReq;
+import com.jimin.readingjournal.domain.journal.request.JournalWriteReq;
+import com.jimin.readingjournal.domain.journal.response.JournalListRes;
 import com.jimin.readingjournal.domain.journal.service.JournalService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +43,24 @@ public class JournalController {
 
     @GetMapping("/journal-list")
     public String journalList(@RequestParam(name="bookId") Long bookId, HttpSession session, Model model) {
-        List<JournalDto> journals = journalService.getJournalsByBookId(session, bookId);
+        List<JournalListRes> journals = journalService.getJournalsByBookId(session, bookId);
+        model.addAttribute("bookId", bookId);
         model.addAttribute("journals", journals);
         return "journal-list";
     }
+
+    @GetMapping("/journal-write")
+    public String openJournalWrite(@RequestParam(name="bookId") Long bookId, Model model) {
+        model.addAttribute("bookId", bookId);
+        model.addAttribute("journalWriteReq", new JournalWriteReq());
+        return "journal-write";
+    }
+
+    @PostMapping("/journal-write")
+    public String journalWrite(@ModelAttribute("journalWriteReq") JournalWriteReq req, HttpSession session) {
+        journalService.insertJournal(session, req);
+
+        return "redirect:/reading-journal";
+    }
+
 }

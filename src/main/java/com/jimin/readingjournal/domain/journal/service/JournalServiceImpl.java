@@ -4,8 +4,12 @@ import com.jimin.readingjournal.domain.auth.service.AuthService;
 import com.jimin.readingjournal.domain.journal.dto.BookDto;
 import com.jimin.readingjournal.domain.journal.dto.BookImageDto;
 import com.jimin.readingjournal.domain.journal.dto.JournalDto;
+import com.jimin.readingjournal.domain.journal.dto.MemorablePhraseDto;
 import com.jimin.readingjournal.domain.journal.mapper.JournalMapper;
 import com.jimin.readingjournal.domain.journal.request.BookRegisterReq;
+import com.jimin.readingjournal.domain.journal.request.JournalWriteReq;
+import com.jimin.readingjournal.domain.journal.request.MemorablePhraseReq;
+import com.jimin.readingjournal.domain.journal.response.JournalListRes;
 import com.jimin.readingjournal.domain.journal.utils.FileUtils;
 import com.jimin.readingjournal.global.exception.custom.UnauthorizedUserException;
 import jakarta.servlet.http.HttpSession;
@@ -51,7 +55,7 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
-    public List<JournalDto> getJournalsByBookId(HttpSession session, Long bookId) {
+    public List<JournalListRes> getJournalsByBookId(HttpSession session, Long bookId) {
         String loginedUserId = authService.getUserId(session);
         String requestedUserId = mapper.getUserIdByBookId(bookId);
 
@@ -60,5 +64,34 @@ public class JournalServiceImpl implements JournalService {
         }
 
         return mapper.getJournalsByBookId(bookId);
+    }
+
+    @Override
+    @Transactional
+    public void insertJournal(HttpSession session, JournalWriteReq req) {
+        String userId = authService.getUserId(session);
+        if (userId == null) {
+            throw new UnauthorizedUserException();
+        }
+
+        JournalDto journalDto = JournalDto.builder()
+                .startPage(req.getStartPage())
+                .endPage(req.getEndPage())
+                .review(req.getReview())
+                .userId(userId)
+                .bookId(req.getBookId())
+                .build();
+
+        mapper.insertJournal(journalDto);
+
+        for (MemorablePhraseReq phraseReq : req.getPhraseList()) {
+            MemorablePhraseDto memorablePhraseDto = MemorablePhraseDto.builder()
+                    .phrase(phraseReq.getPhrase())
+                    .page(phraseReq.getPage())
+                    .journalId(journalDto.getJournalId())
+                    .build();
+
+            mapper.insertMemorablePhrase(memorablePhraseDto);
+        }
     }
 }

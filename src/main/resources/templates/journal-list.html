@@ -13,7 +13,7 @@
     <section class="reviews-section">
         <div class="top-bar">
             <h2>감상평 리스트</h2>
-            <a href="/write-review" class="write-review-btn">감상평 작성</a>
+            <a th:href="@{/reading-journal/journal-write(bookId=${bookId})}" class="write-review-btn">감상평 작성</a>
         </div>
         <table class="reviews-table">
             <thead>
@@ -29,7 +29,7 @@
                     <td th:text="${journal.createdAt}"></td>
                     <td th:text="${journal.startPage}"></td>
                     <td th:text="${journal.endPage}"></td>
-                    <td th:text="${#strings.substring(journal.review, 0, 15) + '...'}"></td>
+                    <td th:text="${journal.review.length() > 15 ? #strings.substring(journal.review, 0, 15) + '...' : journal.review}"></td>
                 </tr>
             </tbody>
         </table>

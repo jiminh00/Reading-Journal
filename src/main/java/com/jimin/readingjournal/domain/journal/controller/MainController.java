@@ -1,6 +1,6 @@
 package com.jimin.readingjournal.domain.journal.controller;
 
-import com.jimin.readingjournal.domain.journal.dto.BookCardDto;
+import com.jimin.readingjournal.domain.journal.response.BookCardRes;
 import com.jimin.readingjournal.domain.journal.service.MainService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class MainController {
 
     @GetMapping
     public String openIndex(Model model, HttpSession session) {
-        List<BookCardDto> bookCards = mainService.getBookCardsByUserId(session);
+        List<BookCardRes> bookCards = mainService.getBookCardsByUserId(session);
 
         if (bookCards != null) {
             model.addAttribute("bookCards", bookCards);
