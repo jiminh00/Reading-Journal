@@ -16,4 +16,14 @@
         FROM book b join book_image bi on b.book_id = bi.book_id
         WHERE b.user_id=#{userId};
     </select>
+    <select id="getJournalsByBookId" parameterType="Long">
+        SELECT journal_id, start_page, end_page, review, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at
+        FROM journal
+        WHERE book_id = #{bookId};
+    </select>
+    <select id="getUserIdByBookId" parameterType="Long">
+        SELECT user_id
+        FROM book
+        WHERE book_id=#{bookId};
+    </select>
 </mapper>

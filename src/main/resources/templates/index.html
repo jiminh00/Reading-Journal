@@ -39,7 +39,7 @@
     <div th:else>
         <div class="book-container">
             <div th:each="bookCard : ${bookCards}" class="book-card">
-                <a th:href="@{/journal-list(bookId=${bookCard.bookId})}">
+                <a th:href="@{/reading-journal/journal-list(bookId=${bookCard.bookId})}">
                     <img th:src="@{${bookCard.bookImageUrl}}" th:alt="${bookCard.bookTitle}">
                 </a>
                 <p th:text="${bookCard.bookTitle}"></p>

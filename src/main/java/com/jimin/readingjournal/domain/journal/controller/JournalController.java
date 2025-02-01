@@ -1,5 +1,6 @@
 package com.jimin.readingjournal.domain.journal.controller;
 
+import com.jimin.readingjournal.domain.journal.dto.JournalDto;
 import com.jimin.readingjournal.domain.journal.request.BookRegisterReq;
 import com.jimin.readingjournal.domain.journal.service.JournalService;
 import jakarta.servlet.http.HttpSession;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -35,5 +38,12 @@ public class JournalController {
 
         redirectAttributes.addFlashAttribute("alertMessage", "책 등록이 완료되었습니다.");
         return "redirect:/reading-journal";
+    }
+
+    @GetMapping("/journal-list")
+    public String journalList(@RequestParam(name="bookId") Long bookId, HttpSession session, Model model) {
+        List<JournalDto> journals = journalService.getJournalsByBookId(session, bookId);
+        model.addAttribute("journals", journals);
+        return "journal-list";
     }
 }

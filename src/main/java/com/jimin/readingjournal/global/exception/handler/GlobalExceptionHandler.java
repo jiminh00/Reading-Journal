@@ -8,10 +8,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    // 허용되지 않는 접근
+    @ExceptionHandler(UnauthorizedUserException.class)
+    public String handleUnauthorizedUserException(UnauthorizedUserException e, RedirectAttributes redirectAttributes) {
+        log.error("Error occurred - Code: {}", e.getErrorCode(), e);
+
+        redirectAttributes.addFlashAttribute("alertMessage", e.getMessage());
+        return "redirect:/reading-journal";
+    }
+
     // 사용자 인증
     @ExceptionHandler({PasswordMismatchException.class, UserIdDuplicateException.class})
     public String handleSignupException(ReadingJournalException e, Model model) {
