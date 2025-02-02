@@ -40,7 +40,8 @@ public class FileUtils {
 
             String uniqueFileName = UUID.randomUUID() + "." + fileExtension;
 
-            File directory = new ClassPathResource(STATIC_IMAGE_DIR).getFile();
+            // 동적으로 디렉토리 생성
+            File directory = new File(new ClassPathResource("static").getFile(), "book-images");
             if (!directory.exists()) {
                 directory.mkdirs();
             }
@@ -50,6 +51,7 @@ public class FileUtils {
 
             return "/book-images/" + uniqueFileName;
         } catch (IOException e) {
+            e.printStackTrace();
             throw new FileUploadFailException();
         }
     }
