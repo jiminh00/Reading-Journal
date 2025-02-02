@@ -15,7 +15,7 @@
             <a th:href="@{/reading-journal/signin}">로그인</a>
         </th:block>
         <th:block th:if="${session.userId != null}">
-            <a th:href="@{/book/register}" class="nav-button">책 등록</a>
+            <a th:href="@{/reading-journal/book-register}" class="nav-button">책 등록</a>
             <form th:action="@{/reading-journal/signout}" method="post" style="display:inline;">
                 <button type="submit" class="nav-button" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</button>
             </form>

@@ -12,27 +12,20 @@
 <main class="main-container">
     <section class="book-register-section">
         <h2>책 등록</h2>
-        <form action="/register-book" method="post" enctype="multipart/form-data" class="book-register-form">
+        <form action="/reading-journal/book-register" method="post" enctype="multipart/form-data" th:object="${bookRegisterReq}" class="book-register-form">
             <div class="form-group">
                 <label for="title">제목</label>
-                <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+                <input type="text" id="title" name="title" placeholder="제목을 입력하세요" th:field="*{title}" required>
             </div>
             <div class="form-group">
                 <label for="author">저자</label>
-                <input type="text" id="author" name="author" placeholder="저자를 입력하세요" required>
+                <input type="text" id="author" name="author" placeholder="저자를 입력하세요" th:field="*{author}"  required>
             </div>
             <div class="form-group">
-                <label>공개 여부</label>
-                <div>
-                    <input type="radio" id="public" name="visibility" value="public" required>
-                    <label for="public">공개</label>
-                    <input type="radio" id="private" name="visibility" value="private">
-                    <label for="private">비공개</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="bookImage">책 이미지</label>
-                <input type="file" id="bookImage" name="bookImage" accept="image/*">
+                <label for="image">책 이미지</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <p>* 이미지는 jpeg, png, gif 파일만 가능합니다.</p>
+                <div th:if="${error != null && error.field == 'image'}" style="color: red; font-size: 14px;"  th:text="${error.message}"></div>
             </div>
             <button type="submit" class="submit-btn">등록</button>
         </form>

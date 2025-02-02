@@ -69,7 +69,7 @@ body {
     flex-direction: column;
 }
 
-.form-group label {
+.form-group label, .form-group p {
     margin-bottom: 5px;
     font-size: 14px;
     color: #666;
@@ -108,4 +108,20 @@ body {
 
 .submit-btn:hover {
     background-color: #0056b3;
+}
+
+.form-group.radio-group {
+    flex-direction: row; /* 가로 정렬 */
+    align-items: center; /* 가운데 정렬 */
+    gap: 10px; /* 버튼 간격 */
+}
+
+.form-group.radio-group label {
+    margin: 0; /* 라벨 여백 제거 */
+    font-size: 14px;
+    color: #666;
+}
+
+.form-group.radio-group input[type="radio"] {
+    margin: 0 5px 0 0; /* 버튼과 라벨 간격 */
 }

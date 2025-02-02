@@ -13,25 +13,32 @@
 <main class="main-container">
     <section class="review-write-section">
         <h2>감상평 작성</h2>
-        <div class="review-info">
-            <p><strong>시작 페이지</strong> <input type="number" name="startPage" value="" class="page-input"></p>
-            <p><strong>마지막 페이지</strong> <input type="number" name="endPage" value="" class="page-input"></p>
-        </div>
-        <div class="review-content">
-            <h3>감상평</h3>
-            <textarea name="review" id="review" placeholder="감상평을 입력하세요"></textarea>
-        </div>
-        <div class="deep-thought-section">
-            <h3>인상 깊은 문장 <button type="button" id="add-thought-btn" class="add-btn">추가</button></h3>
-            <div id="thoughts-container">
-                <div class="thought-container">
-                    <p><strong>페이지:</strong> <input type="number" name="page" class="page-input" value=""></p>
-                    <textarea name="thought" class="thought-text" placeholder="문장을 입력하세요"></textarea>
-                    <button type="button" class="remove-btn">삭제</button>
+        <!-- Form 시작 -->
+        <form th:action="@{/reading-journal/journal-write}"  th:object="${journalWriteReq}" method="post">
+            <input type="hidden" name="bookId" th:value="${bookId}">
+            <div class="review-info">
+                <p>
+                    <strong>시작 페이지</strong>
+                    <input type="number" id="startPage" th:field="*{startPage}" class="page-input" required>
+                </p>
+                <p>
+                    <strong>마지막 페이지</strong>
+                    <input type="number" id="endPage" th:field="*{endPage}" class="page-input" required>
+                </p>
+            </div>
+            <div class="review-content">
+                <h3>감상평</h3>
+                <textarea id="review" placeholder="감상평을 입력하세요" th:field="*{review}" required></textarea>
+            </div>
+            <div class="deep-thought-section">
+                <h3>인상 깊은 문장
+                    <button type="button" id="add-thought-btn" class="add-btn">추가</button>
+                </h3>
+                <div id="thoughts-container">
                 </div>
             </div>
-        </div>
-        <button type="submit" class="submit-btn">등록</button>
+            <button type="submit" class="submit-btn">등록</button>
+        </form>
     </section>
 </main>
 </body>

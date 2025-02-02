@@ -23,22 +23,26 @@
         <p class="description">회원가입 후, 책을 등록하여, 읽은 페이지와 감상평을 남겨보세요. 당신의 독서 여정을 기록해보세요.</p>
         <div class="book-container">
             <div class="book-card">
-                <a th:href="@{/review-list/sample/1}">
-                    <img th:src="@{/images/book-01.png}" alt="나미야 잡화점의 기적">
-                </a>
+                <img th:src="@{/images/book-01.png}" alt="나미야 잡화점의 기적">
                 <p>나미야 잡화점의 기적</p>
             </div>
             <div class="book-card">
-                <a th:href="@{/review-list/sample/2}">
-                    <img th:src="@{/images/book-02.png}" alt="하늘과 바람과 별과 시">
-                </a>
+                <img th:src="@{/images/book-02.png}" alt="하늘과 바람과 별과 시">
                 <p>하늘과 바람과 별과 시</p>
             </div>
             <div class="book-card">
-                <a th:href="@{/review-list/sample/3}">
-                    <img th:src="@{/images/book-03.png}" alt="면도날">
-                </a>
+                <img th:src="@{/images/book-03.png}" alt="면도날">
                 <p>면도날</p>
+            </div>
+        </div>
+    </div>
+    <div th:else>
+        <div class="book-container">
+            <div th:each="bookCard : ${bookCards}" class="book-card">
+                <a th:href="@{/reading-journal/journal-list(bookId=${bookCard.bookId})}">
+                    <img th:src="@{${bookCard.bookImageUrl}}" th:alt="${bookCard.bookTitle}">
+                </a>
+                <p th:text="${bookCard.bookTitle}"></p>
             </div>
         </div>
     </div>

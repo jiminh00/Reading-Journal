@@ -65,8 +65,28 @@ textarea {
     height: 80px;
 }
 
-.add-btn, .remove-btn, .submit-btn {
-    background-color: #007BFF;
+/* 추가 버튼 스타일 */
+.add-btn {
+    background-color: #6c757d; /* 진한 회색 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 15px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.add-btn:hover {
+    background-color: #5a6268; /* hover 시 더 진한 회색 */
+}
+
+/* 삭제 버튼 스타일 */
+.remove-btn {
+    background-color: #adb5bd; /* 낮은 채도의 회색 */
     color: white;
     border: none;
     border-radius: 4px;
@@ -75,10 +95,33 @@ textarea {
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.add-btn:hover, .remove-btn:hover, .submit-btn:hover {
-    background-color: #0056b3;
+.remove-btn:hover {
+    background-color: #868e96; /* hover 시 조금 더 진한 회색 */
+}
+
+/* 등록 버튼 스타일 */
+.submit-btn {
+    background-color: #343a40; /* 추가 버튼보다 더 진한 회색 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submit-btn:hover {
+    background-color: #23272b; /* hover 시 더 진한 색상 */
 }
 
 .thought-container {

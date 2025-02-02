@@ -114,3 +114,20 @@ textarea[readonly] {
 .edit-btn:hover {
     background-color: #0056b3;
 }
+
+.delete-btn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #6c757d;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #495057;
+}
