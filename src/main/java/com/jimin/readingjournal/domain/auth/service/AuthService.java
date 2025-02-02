@@ -9,5 +9,5 @@ public interface AuthService {
 
     boolean signin(SigninReq signinReq, HttpSession session);
 
-    String getUserId(HttpSession session);
+    String getUserId();
 }

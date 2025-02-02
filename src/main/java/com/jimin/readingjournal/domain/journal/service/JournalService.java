@@ -4,21 +4,20 @@ import com.jimin.readingjournal.domain.journal.request.BookRegisterReq;
 import com.jimin.readingjournal.domain.journal.request.JournalWriteReq;
 import com.jimin.readingjournal.domain.journal.response.JournalDetailRes;
 import com.jimin.readingjournal.domain.journal.response.JournalListRes;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface JournalService {
-    void registerBook(BookRegisterReq bookRegisterReq, MultipartFile image, HttpSession session);
+    void registerBook(BookRegisterReq bookRegisterReq, MultipartFile image);
 
-    List<JournalListRes> getJournalsByBookId(HttpSession session, Long bookId);
+    List<JournalListRes> getJournalsByBookId(Long bookId);
 
-    Long insertJournalAndGetJournalId(HttpSession session, JournalWriteReq req);
+    Long insertJournalAndGetJournalId(JournalWriteReq req);
 
-    JournalDetailRes getJournalDetail(HttpSession session, Long journalId);
+    JournalDetailRes getJournalDetail(Long journalId);
 
-    Long deleteJournalAndGetBookId(HttpSession session, Long journalId);
+    Long deleteJournalAndGetBookId(Long journalId);
 
-    void updateJoural(HttpSession session, JournalDetailRes journalDetail, Long journalId);
+    void updateJoural(JournalDetailRes journalDetail, Long journalId);
 }

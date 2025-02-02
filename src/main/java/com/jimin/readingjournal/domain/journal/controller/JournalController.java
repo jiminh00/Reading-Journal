@@ -5,7 +5,6 @@ import com.jimin.readingjournal.domain.journal.request.JournalWriteReq;
 import com.jimin.readingjournal.domain.journal.response.JournalDetailRes;
 import com.jimin.readingjournal.domain.journal.response.JournalListRes;
 import com.jimin.readingjournal.domain.journal.service.JournalService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -33,18 +32,17 @@ public class JournalController {
     // 책 등록
     @PostMapping("/book-register")
     public String registerBook(@ModelAttribute("bookRegisterReq") BookRegisterReq bookRegisterReq,
-                               @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes,
-                               HttpSession session) {
+                               @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
         log.info("book register request: {}", bookRegisterReq);
-        journalService.registerBook(bookRegisterReq, image, session);
+        journalService.registerBook(bookRegisterReq, image);
 
         redirectAttributes.addFlashAttribute("alertMessage", "책 등록이 완료되었습니다.");
         return "redirect:/reading-journal";
     }
 
     @GetMapping("/journal-list")
-    public String journalList(@RequestParam(name="bookId") Long bookId, HttpSession session, Model model) {
-        List<JournalListRes> journals = journalService.getJournalsByBookId(session, bookId);
+    public String journalList(@RequestParam(name="bookId") Long bookId, Model model) {
+        List<JournalListRes> journals = journalService.getJournalsByBookId(bookId);
         model.addAttribute("bookId", bookId);
         model.addAttribute("journals", journals);
         return "journal-list";
@@ -58,30 +56,30 @@ public class JournalController {
     }
 
     @PostMapping("/journal-write")
-    public String journalWrite(@ModelAttribute("journalWriteReq") JournalWriteReq req, HttpSession session) {
-        Long journalId = journalService.insertJournalAndGetJournalId(session, req);
+    public String journalWrite(@ModelAttribute("journalWriteReq") JournalWriteReq req) {
+        Long journalId = journalService.insertJournalAndGetJournalId(req);
 
         return "redirect:/reading-journal/journal-detail?journalId=" + journalId;
     }
 
     @GetMapping("/journal-detail")
-    public String openJournalDetail(@RequestParam(name="journalId") Long journalId, Model model, HttpSession session) {
-        JournalDetailRes journalDetailRes = journalService.getJournalDetail(session, journalId);
+    public String openJournalDetail(@RequestParam(name="journalId") Long journalId, Model model) {
+        JournalDetailRes journalDetailRes = journalService.getJournalDetail(journalId);
         model.addAttribute("journalDetail", journalDetailRes);
         return "journal-detail";
     }
 
     @PostMapping("/journal-delete/{journalId}")
-    public String deleteJournal(@PathVariable(name="journalId") Long journalId, HttpSession session, RedirectAttributes redirectAttributes) {
-        Long bookId = journalService.deleteJournalAndGetBookId(session, journalId);
+    public String deleteJournal(@PathVariable(name="journalId") Long journalId, RedirectAttributes redirectAttributes) {
+        Long bookId = journalService.deleteJournalAndGetBookId(journalId);
 
         redirectAttributes.addFlashAttribute("alertMessage", "감상평이 삭제되었습니다.");
         return "redirect:/reading-journal/journal-list?bookId=" + bookId;
     }
 
     @GetMapping("/journal-update")
-    public String openJournalUpdate(@RequestParam(name="journalId") Long journalId, HttpSession session, Model model) {
-        JournalDetailRes journalDetailRes = journalService.getJournalDetail(session, journalId);
+    public String openJournalUpdate(@RequestParam(name="journalId") Long journalId, Model model) {
+        JournalDetailRes journalDetailRes = journalService.getJournalDetail(journalId);
 
         log.info("openJournalUpdate - journalDetailRes: {}", journalDetailRes);
 
@@ -90,9 +88,9 @@ public class JournalController {
     }
 
     @PostMapping("/journal-update/{journalId}")
-    public String journalUpdate(@PathVariable(name="journalId") Long journalId, HttpSession session,
+    public String journalUpdate(@PathVariable(name="journalId") Long journalId,
                                 @ModelAttribute("journalDetail") JournalDetailRes journalDetail) {
-        journalService.updateJoural(session, journalDetail, journalId);
+        journalService.updateJoural(journalDetail, journalId);
 
         return "redirect:/reading-journal/journal-detail?journalId=" + journalId;
     }

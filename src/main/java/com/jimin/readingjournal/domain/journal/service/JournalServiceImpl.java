@@ -14,16 +14,15 @@ import com.jimin.readingjournal.domain.journal.response.JournalListRes;
 import com.jimin.readingjournal.domain.journal.utils.FileUtils;
 import com.jimin.readingjournal.global.exception.custom.DeletedJournalException;
 import com.jimin.readingjournal.global.exception.custom.UnauthorizedUserException;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ArrayList;
 
 @Slf4j
 @Service
@@ -35,10 +34,10 @@ public class JournalServiceImpl implements JournalService {
 
     @Override
     @Transactional
-    public void registerBook(BookRegisterReq bookRegisterReq, MultipartFile image, HttpSession session) {
+    public void registerBook(BookRegisterReq bookRegisterReq, MultipartFile image) {
         String bookImageUrl = fileUtils.saveFile(image);
 
-        String userId = authService.getUserId(session);
+        String userId = authService.getUserId();
 
         BookDto bookDto = BookDto.builder()
                 .bookTitle(bookRegisterReq.getTitle())
@@ -59,8 +58,8 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
-    public List<JournalListRes> getJournalsByBookId(HttpSession session, Long bookId) {
-        String loginedUserId = authService.getUserId(session);
+    public List<JournalListRes> getJournalsByBookId(Long bookId) {
+        String loginedUserId = authService.getUserId();
         String requestedUserId = mapper.getUserIdByBookId(bookId);
 
         if (loginedUserId == null || !loginedUserId.equals(requestedUserId)) {
@@ -72,8 +71,8 @@ public class JournalServiceImpl implements JournalService {
 
     @Override
     @Transactional
-    public Long insertJournalAndGetJournalId(HttpSession session, JournalWriteReq req) {
-        String userId = authService.getUserId(session);
+    public Long insertJournalAndGetJournalId(JournalWriteReq req) {
+        String userId = authService.getUserId();
         if (userId == null) {
             throw new UnauthorizedUserException();
         }
@@ -99,8 +98,8 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
-    public JournalDetailRes getJournalDetail(HttpSession session, Long journalId) {
-        String userId = authService.getUserId(session);
+    public JournalDetailRes getJournalDetail(Long journalId) {
+        String userId = authService.getUserId();
         String requestedUserId = mapper.getUserIdByJournalId(journalId);
 
         if (userId == null || !userId.equals(requestedUserId)) {
@@ -120,8 +119,8 @@ public class JournalServiceImpl implements JournalService {
 
     @Override
     @Transactional
-    public Long deleteJournalAndGetBookId(HttpSession session, Long journalId) {
-        String userId = authService.getUserId(session);
+    public Long deleteJournalAndGetBookId(Long journalId) {
+        String userId = authService.getUserId();
         String requestedUserId = mapper.getUserIdByJournalId(journalId);
 
         if (userId == null || !userId.equals(requestedUserId)) {
@@ -137,9 +136,9 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
-    public void updateJoural(HttpSession session, JournalDetailRes journalDetail, Long journalId) {
+    public void updateJoural(JournalDetailRes journalDetail, Long journalId) {
         log.info("==== Updated phrases {}", journalDetail.getMemorablePhraseResList());
-        String userId = authService.getUserId(session);
+        String userId = authService.getUserId();
         String requestedUserId = mapper.getUserIdByJournalId(journalId);
 
         if (userId == null || !userId.equals(requestedUserId)) {
