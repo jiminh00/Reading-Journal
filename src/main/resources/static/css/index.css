@@ -50,3 +50,9 @@ main h2 {
     font-size: 14px;
     color: #555;
 }
+
+.no-books-message {
+    text-align: center;
+    color: #666;
+    margin: 20px 0;
+}

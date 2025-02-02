@@ -24,6 +24,9 @@
         <div th:replace="~{fragments/booklist :: booklist}"></div>
     </div>
     <div sec:authorize="isAuthenticated()">
+        <div th:if="${#lists.isEmpty(bookCards)}" class="no-books-message">
+            <p>등록된 책이 없습니다. 새로운 책을 등록해보세요.</p>
+        </div>
         <div class="book-container">
             <div th:each="bookCard : ${bookCards}" class="book-card">
                 <a th:href="@{/reading-journal/journal-list(bookId=${bookCard.bookId})}">
