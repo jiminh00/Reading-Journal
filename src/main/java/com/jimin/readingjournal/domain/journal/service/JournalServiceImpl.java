@@ -128,11 +128,12 @@ public class JournalServiceImpl implements JournalService {
             throw new UnauthorizedUserException();
         }
 
+        Long bookId = mapper.getJournalByJournalId(journalId).getBookId();
+
         mapper.deleteJournalByJournalId(journalId);
         mapper.deleteMemorablePhraseByJournalId(journalId);
 
-        JournalDto journalDto = mapper.getJournalByJournalId(journalId);
-        return journalDto.getBookId();
+        return bookId;
     }
 
     @Override
