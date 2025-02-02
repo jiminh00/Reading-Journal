@@ -2,6 +2,7 @@ package com.jimin.readingjournal.domain.journal.controller;
 
 import com.jimin.readingjournal.domain.journal.request.BookRegisterReq;
 import com.jimin.readingjournal.domain.journal.request.JournalWriteReq;
+import com.jimin.readingjournal.domain.journal.response.JournalDetailRes;
 import com.jimin.readingjournal.domain.journal.response.JournalListRes;
 import com.jimin.readingjournal.domain.journal.service.JournalService;
 import jakarta.servlet.http.HttpSession;
@@ -60,7 +61,13 @@ public class JournalController {
     public String journalWrite(@ModelAttribute("journalWriteReq") JournalWriteReq req, HttpSession session) {
         journalService.insertJournal(session, req);
 
-        return "redirect:/reading-journal";
+        return "redirect:/reading-journal/journal-list?bookId=" + req.getBookId();
     }
 
+    @GetMapping("/journal-detail")
+    public String openJournalDetail(@RequestParam(name="journalId") Long journalId, Model model, HttpSession session) {
+        JournalDetailRes journalDetailRes = journalService.getJournalDetail(session, journalId);
+        model.addAttribute("journalDetail", journalDetailRes);
+        return "journal-detail";
+    }
 }

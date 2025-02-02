@@ -7,31 +7,55 @@
         INSERT INTO book (user_id, book_title, book_author)
         VALUES (#{userId}, #{bookTitle}, #{bookAuthor})
     </insert>
+
     <insert id="insertBookImage" parameterType="com.jimin.readingjournal.domain.journal.dto.BookImageDto">
         INSERT INTO book_image (book_image_url, book_id, user_id, book_image_name)
         VALUES (#{bookImageUrl}, #{bookId}, #{userId}, #{bookImageName})
     </insert>
+
     <select id="getBookCardsByUserId" parameterType="String">
         SELECT b.book_id as book_id, b.book_title as book_title, bi.book_image_url as book_image_url
         FROM book b join book_image bi on b.book_id = bi.book_id
         WHERE b.user_id=#{userId};
     </select>
+
     <select id="getJournalsByBookId" parameterType="Long">
         SELECT journal_id, start_page, end_page, review, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at
         FROM journal
         WHERE book_id = #{bookId};
     </select>
+
     <select id="getUserIdByBookId" parameterType="Long">
         SELECT user_id
         FROM book
         WHERE book_id=#{bookId};
     </select>
+
     <insert id="insertJournal" parameterType="com.jimin.readingjournal.domain.journal.dto.JournalDto" useGeneratedKeys="true" keyProperty="journalId">
         INSERT INTO journal (start_page, end_page, review, book_id, user_id)
         VALUES (#{startPage}, #{endPage}, #{review}, #{bookId}, #{userId});
     </insert>
+
     <insert id="insertMemorablePhrase" parameterType="com.jimin.readingjournal.domain.journal.dto.MemorablePhraseDto">
         INSERT INTO memorable_phrase (phrase, page, journal_id)
         VALUES (#{phrase}, #{page}, #{journalId});
     </insert>
+
+    <select id="getUserIdByJournalId" parameterType="Long">
+        SELECT user_id
+        FROM journal
+        WHERE journal_id=#{journalId};
+    </select>
+
+    <select id="getJournalByJournalId" parameterType="Long">
+        SELECT *
+        FROM journal
+        WHERE journal_id=#{journalId};
+    </select>
+
+    <select id="getMemorablePhraseByJournalId" parameterType="Long">
+        SELECT *
+        FROM memorable_phrase
+        WHERE journal_id=#{journalId};
+    </select>
 </mapper>

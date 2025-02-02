@@ -22,4 +22,10 @@ public interface JournalMapper {
     void insertJournal(JournalDto journalDto);
 
     void insertMemorablePhrase(MemorablePhraseDto memorablePhraseDto);
+
+    String getUserIdByJournalId(Long journalId);
+
+    JournalDto getJournalByJournalId(Long journalId);
+
+    List<MemorablePhraseDto> getMemorablePhraseByJournalId(Long journalId);
 }
