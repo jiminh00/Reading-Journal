@@ -5,14 +5,10 @@
 <mapper namespace="com.jimin.readingjournal.domain.auth.mapper.AuthMapper">
     <insert id="insertUser" parameterType="com.jimin.readingjournal.domain.auth.dto.UserDto">
         INSERT INTO users (user_id, user_pw)
-        VALUES (#{userId}, #{password})
+        VALUES (#{userId}, #{userPw})
     </insert>
     <select id="selectUserByUserId" parameterType="String">
         SELECT * FROM users
         WHERE user_id=#{userId};
-    </select>
-    <select id="selectUserByUserIdAndUserPassword" parameterType="com.jimin.readingjournal.domain.auth.dto.UserDto">
-        SELECT * FROM users
-        WHERE user_id=#{userId} and user_pw=#{password};
     </select>
 </mapper>
