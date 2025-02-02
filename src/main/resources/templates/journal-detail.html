@@ -30,8 +30,13 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="edit-btn">수정</button>
-        <button type="button" class="delete-btn">삭제</button>
+        <form th:action="@{/reading-journal/journal-update}" method="get">
+            <input type="hidden" name="journalId" th:value="${journalDetail.journal.journalId}">
+            <button type="submit" class="edit-btn">수정</button>
+        </form>
+        <form th:action="@{/reading-journal/journal-delete/{journalId}(journalId=${journalDetail.journal.journalId})}" method="post">
+            <button type="submit" class="delete-btn" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+        </form>
     </section>
 </main>
 </body>

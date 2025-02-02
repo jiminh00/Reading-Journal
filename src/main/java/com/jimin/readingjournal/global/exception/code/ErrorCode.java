@@ -15,8 +15,10 @@ public enum ErrorCode {
     EMPTY_FILE("파일이 비어 있습니다."),
     INVALID_FILE_NAME("파일명이 올바르지 않습니다."),
     INVALID_FILE_TYPE("지원하지 않는 이미지 형식입니다."),
-    FILE_UPLOAD_FAILED("파일 저장에 실패했습니다.");
+    FILE_UPLOAD_FAILED("파일 저장에 실패했습니다."),
 
+    // 삭제된 감상평
+    DELETED_JOURNAL("삭제된 감상평입니다.");
 
     private final String message;
 }

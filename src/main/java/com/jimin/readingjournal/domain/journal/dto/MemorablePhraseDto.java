@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Objects;
+
 @Data
 //@Builder
 @AllArgsConstructor
@@ -13,6 +15,23 @@ import lombok.ToString;
 public class MemorablePhraseDto {
     private Long memorablePhraseId;
     private String phrase;
-    private int page;
+    private Integer page;
     private Long journalId;
+    private Boolean isDeleted;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemorablePhraseDto that = (MemorablePhraseDto) o;
+
+        return page == that.page &&
+                isDeleted == that.isDeleted &&
+                Objects.equals(phrase, that.phrase);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(page, phrase, isDeleted);
+    }
 }

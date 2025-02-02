@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Data
 //@Builder
@@ -18,4 +19,21 @@ public class JournalDto {
     private String userId;
     private Long bookId;
     private LocalDate createdAt;
+    private boolean isDeleted;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JournalDto that = (JournalDto) o;
+
+        return startPage == that.startPage &&
+                endPage == that.endPage &&
+                Objects.equals(review, that.review);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startPage, endPage, review);
+    }
 }

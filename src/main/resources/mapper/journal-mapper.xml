@@ -22,7 +22,7 @@
     <select id="getJournalsByBookId" parameterType="Long">
         SELECT journal_id, start_page, end_page, review, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at
         FROM journal
-        WHERE book_id = #{bookId};
+        WHERE book_id = #{bookId} and is_deleted = false;
     </select>
 
     <select id="getUserIdByBookId" parameterType="Long">
@@ -50,12 +50,42 @@
     <select id="getJournalByJournalId" parameterType="Long">
         SELECT *
         FROM journal
-        WHERE journal_id=#{journalId};
+        WHERE journal_id=#{journalId} and is_deleted=false;
     </select>
 
     <select id="getMemorablePhraseByJournalId" parameterType="Long">
         SELECT *
         FROM memorable_phrase
-        WHERE journal_id=#{journalId};
+        WHERE journal_id=#{journalId} and is_deleted=false;
     </select>
+
+    <update id="deleteJournalByJournalId" parameterType="Long">
+        UPDATE journal
+        SET is_deleted = true
+        WHERE journal_id = #{journalId};
+    </update>
+
+    <update id="deleteMemorablePhraseByJournalId" parameterType="Long">
+        UPDATE memorable_phrase
+        SET is_deleted = true
+        WHERE journal_id = #{journalId};
+    </update>
+
+    <update id="updateJournal" parameterType="com.jimin.readingjournal.domain.journal.dto.JournalDto">
+        UPDATE journal
+        SET start_page=#{startPage}, end_page=#{endPage}, review=#{review}
+        WHERE journal_id=#{journalId}
+    </update>
+
+    <update id="deleteMemorablePhraseById" parameterType="Long">
+        UPDATE memorable_phrase
+        SET is_deleted=true
+        WHERE memorable_phrase_id=#{memorablePhraseId};
+    </update>
+
+    <update id="updateMemorablePhraseById" parameterType="com.jimin.readingjournal.domain.journal.dto.MemorablePhraseDto">
+        UPDATE memorable_phrase
+        SET page=#{page}, phrase=#{phrase}
+        WHERE memorable_phrase_id=#{memorablePhraseId};
+    </update>
 </mapper>

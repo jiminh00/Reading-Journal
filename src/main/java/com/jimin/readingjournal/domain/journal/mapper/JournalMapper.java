@@ -28,4 +28,14 @@ public interface JournalMapper {
     JournalDto getJournalByJournalId(Long journalId);
 
     List<MemorablePhraseDto> getMemorablePhraseByJournalId(Long journalId);
+
+    void deleteJournalByJournalId(Long journalId);
+
+    void deleteMemorablePhraseByJournalId(Long journalId);
+
+    void updateJournal(JournalDto journal);
+
+    void deleteMemorablePhraseById(Long memorablePhraseId);
+
+    void updateMemorablePhraseById(MemorablePhraseDto phraseDto);
 }

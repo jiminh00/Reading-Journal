@@ -59,9 +59,9 @@ public class JournalController {
 
     @PostMapping("/journal-write")
     public String journalWrite(@ModelAttribute("journalWriteReq") JournalWriteReq req, HttpSession session) {
-        journalService.insertJournal(session, req);
+        Long journalId = journalService.insertJournalAndGetJournalId(session, req);
 
-        return "redirect:/reading-journal/journal-list?bookId=" + req.getBookId();
+        return "redirect:/reading-journal/journal-detail?journalId=" + journalId;
     }
 
     @GetMapping("/journal-detail")
@@ -69,5 +69,31 @@ public class JournalController {
         JournalDetailRes journalDetailRes = journalService.getJournalDetail(session, journalId);
         model.addAttribute("journalDetail", journalDetailRes);
         return "journal-detail";
+    }
+
+    @PostMapping("/journal-delete/{journalId}")
+    public String deleteJournal(@PathVariable(name="journalId") Long journalId, HttpSession session, RedirectAttributes redirectAttributes) {
+        Long bookId = journalService.deleteJournalAndGetBookId(session, journalId);
+
+        redirectAttributes.addFlashAttribute("alertMessage", "감상평이 삭제되었습니다.");
+        return "redirect:/reading-journal/journal-list?bookId=" + bookId;
+    }
+
+    @GetMapping("/journal-update")
+    public String openJournalUpdate(@RequestParam(name="journalId") Long journalId, HttpSession session, Model model) {
+        JournalDetailRes journalDetailRes = journalService.getJournalDetail(session, journalId);
+
+        log.info("openJournalUpdate - journalDetailRes: {}", journalDetailRes);
+
+        model.addAttribute("journalDetail", journalDetailRes);
+        return "journal-update";
+    }
+
+    @PostMapping("/journal-update/{journalId}")
+    public String journalUpdate(@PathVariable(name="journalId") Long journalId, HttpSession session,
+                                @ModelAttribute("journalDetail") JournalDetailRes journalDetail) {
+        journalService.updateJoural(session, journalDetail, journalId);
+
+        return "redirect:/reading-journal/journal-detail?journalId=" + journalId;
     }
 }

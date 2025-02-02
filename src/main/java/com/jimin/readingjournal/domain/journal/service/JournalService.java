@@ -14,7 +14,11 @@ public interface JournalService {
 
     List<JournalListRes> getJournalsByBookId(HttpSession session, Long bookId);
 
-    void insertJournal(HttpSession session, JournalWriteReq req);
+    Long insertJournalAndGetJournalId(HttpSession session, JournalWriteReq req);
 
     JournalDetailRes getJournalDetail(HttpSession session, Long journalId);
+
+    Long deleteJournalAndGetBookId(HttpSession session, Long journalId);
+
+    void updateJoural(HttpSession session, JournalDetailRes journalDetail, Long journalId);
 }

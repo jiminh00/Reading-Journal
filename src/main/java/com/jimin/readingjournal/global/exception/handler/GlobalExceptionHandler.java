@@ -48,4 +48,13 @@ public class GlobalExceptionHandler {
 
         return "book-register";
     }
+
+    // 삭제된 감상평
+    @ExceptionHandler(DeletedJournalException.class)
+    public String handleDeletedJournalException(DeletedJournalException e, RedirectAttributes redirectAttributes) {
+        log.error("Error occurred - Code: {}", e.getErrorCode(), e);
+
+        redirectAttributes.addFlashAttribute("alertMessage", e.getMessage());
+        return "redirect:/reading-journal";
+    }
 }

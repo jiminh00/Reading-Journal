@@ -12,6 +12,7 @@ import com.jimin.readingjournal.domain.journal.request.MemorablePhraseReq;
 import com.jimin.readingjournal.domain.journal.response.JournalDetailRes;
 import com.jimin.readingjournal.domain.journal.response.JournalListRes;
 import com.jimin.readingjournal.domain.journal.utils.FileUtils;
+import com.jimin.readingjournal.global.exception.custom.DeletedJournalException;
 import com.jimin.readingjournal.global.exception.custom.UnauthorizedUserException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.ArrayList;
 
 @Slf4j
 @Service
@@ -69,7 +72,7 @@ public class JournalServiceImpl implements JournalService {
 
     @Override
     @Transactional
-    public void insertJournal(HttpSession session, JournalWriteReq req) {
+    public Long insertJournalAndGetJournalId(HttpSession session, JournalWriteReq req) {
         String userId = authService.getUserId(session);
         if (userId == null) {
             throw new UnauthorizedUserException();
@@ -85,18 +88,14 @@ public class JournalServiceImpl implements JournalService {
         mapper.insertJournal(journalDto);
 
         for (MemorablePhraseReq phraseReq : req.getPhraseList()) {
-//            MemorablePhraseDto memorablePhraseDto = MemorablePhraseDto.builder()
-//                    .phrase(phraseReq.getPhrase())
-//                    .page(phraseReq.getPage())
-//                    .journalId(journalDto.getJournalId())
-//                    .build();
-
             MemorablePhraseDto memorablePhraseDto = new MemorablePhraseDto();
             memorablePhraseDto.setPhrase(phraseReq.getPhrase());
             memorablePhraseDto.setPage(phraseReq.getPage());
             memorablePhraseDto.setJournalId(journalDto.getJournalId());
             mapper.insertMemorablePhrase(memorablePhraseDto);
         }
+
+        return journalDto.getJournalId();
     }
 
     @Override
@@ -109,12 +108,87 @@ public class JournalServiceImpl implements JournalService {
         }
 
         JournalDto journalDto = mapper.getJournalByJournalId(journalId);
-        List<MemorablePhraseDto> memorablePhraseDto = mapper.getMemorablePhraseByJournalId(journalId);
+        List<MemorablePhraseDto> memorablePhraseDto = Optional.ofNullable(mapper.getMemorablePhraseByJournalId(journalId))
+                .orElseGet(ArrayList::new);
 
-        log.info("journal detail with journal id {}", journalDto.getJournalId());
-        log.info("journal {}", journalDto);
-        log.info("memorable phrase {}", memorablePhraseDto);
+        if (journalDto.isDeleted()) {
+            throw new DeletedJournalException();
+        }
 
         return new JournalDetailRes(journalDto, memorablePhraseDto);
+    }
+
+    @Override
+    @Transactional
+    public Long deleteJournalAndGetBookId(HttpSession session, Long journalId) {
+        String userId = authService.getUserId(session);
+        String requestedUserId = mapper.getUserIdByJournalId(journalId);
+
+        if (userId == null || !userId.equals(requestedUserId)) {
+            throw new UnauthorizedUserException();
+        }
+
+        mapper.deleteJournalByJournalId(journalId);
+        mapper.deleteMemorablePhraseByJournalId(journalId);
+
+        JournalDto journalDto = mapper.getJournalByJournalId(journalId);
+        return journalDto.getBookId();
+    }
+
+    @Override
+    public void updateJoural(HttpSession session, JournalDetailRes journalDetail, Long journalId) {
+        log.info("==== Updated phrases {}", journalDetail.getMemorablePhraseResList());
+        String userId = authService.getUserId(session);
+        String requestedUserId = mapper.getUserIdByJournalId(journalId);
+
+        if (userId == null || !userId.equals(requestedUserId)) {
+            throw new UnauthorizedUserException();
+        }
+
+        // 기존 감상평 및 인상 깊은 문장 조회
+        JournalDto originalJournal = mapper.getJournalByJournalId(journalId);
+        List<MemorablePhraseDto> originalPhraseList = mapper.getMemorablePhraseByJournalId(journalId);
+
+        // 감상평 수정
+        if (!originalJournal.equals(journalDetail.getJournal())) {
+            log.info("Updating journal: {}", journalDetail.getJournal());
+            journalDetail.getJournal().setJournalId(journalId);
+            mapper.updateJournal(journalDetail.getJournal());
+        }
+
+        // 새 인상 깊은 문장
+        List<MemorablePhraseDto> newPhraseList = journalDetail.getMemorablePhraseResList();
+        for (MemorablePhraseDto newPhrase : newPhraseList) {
+            Long phraseId = newPhrase.getMemorablePhraseId();
+
+            if (phraseId != null) {
+                // 기존 문장 처리
+                if (newPhrase.getIsDeleted()) {
+                    // 삭제 요청된 문장
+                    log.info("Deleting memorable phrase: {}", newPhrase);
+                    mapper.deleteMemorablePhraseById(phraseId);
+                } else {
+                    // 기존 문장이며 수정된 경우 업데이트
+                    MemorablePhraseDto originalPhrase = originalPhraseList.stream()
+                            .filter(op -> op.getMemorablePhraseId().equals(phraseId))
+                            .findFirst()
+                            .orElse(null);
+
+                    if (originalPhrase != null && !originalPhrase.equals(newPhrase)) {
+                        log.info("Updating memorable phrase: {}", newPhrase);
+                        newPhrase.setJournalId(journalId); // Journal ID 설정
+                        mapper.updateMemorablePhraseById(newPhrase);
+                    }
+                }
+            } else {
+                // 새로운 문장 처리
+                if (!newPhrase.getIsDeleted()) {
+                    // 추가 요청된 문장
+                    log.info("Inserting new memorable phrase: {}", newPhrase);
+                    newPhrase.setJournalId(journalId); // Journal ID 설정
+                    mapper.insertMemorablePhrase(newPhrase);
+                }
+            }
+        }
     }
 }
