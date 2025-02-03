@@ -1,14 +1,11 @@
 package com.jimin.readingjournal.domain.journal.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
 @Data
-//@Builder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

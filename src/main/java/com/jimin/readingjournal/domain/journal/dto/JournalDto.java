@@ -1,6 +1,7 @@
 package com.jimin.readingjournal.domain.journal.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Data
-//@Builder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class JournalDto {

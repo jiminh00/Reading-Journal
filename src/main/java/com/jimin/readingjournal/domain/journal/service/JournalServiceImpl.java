@@ -77,20 +77,22 @@ public class JournalServiceImpl implements JournalService {
             throw new UnauthorizedUserException();
         }
 
-        JournalDto journalDto = new JournalDto();
-        journalDto.setStartPage(req.getStartPage());
-        journalDto.setEndPage(req.getEndPage());
-        journalDto.setReview(req.getReview());
-        journalDto.setUserId(userId);
-        journalDto.setBookId(req.getBookId());
+        JournalDto journalDto = JournalDto.builder()
+                .bookId(req.getBookId())
+                .startPage(req.getStartPage())
+                .endPage(req.getEndPage())
+                .review(req.getReview())
+                .userId(userId)
+                .build();
 
         mapper.insertJournal(journalDto);
 
         for (MemorablePhraseReq phraseReq : req.getPhraseList()) {
-            MemorablePhraseDto memorablePhraseDto = new MemorablePhraseDto();
-            memorablePhraseDto.setPhrase(phraseReq.getPhrase());
-            memorablePhraseDto.setPage(phraseReq.getPage());
-            memorablePhraseDto.setJournalId(journalDto.getJournalId());
+            MemorablePhraseDto memorablePhraseDto = MemorablePhraseDto.builder()
+                    .phrase(phraseReq.getPhrase())
+                    .page(phraseReq.getPage())
+                    .journalId(journalDto.getJournalId())
+                    .build();
             mapper.insertMemorablePhrase(memorablePhraseDto);
         }
 
